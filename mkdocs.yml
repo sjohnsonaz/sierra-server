@@ -1,0 +1,7 @@
+site_name: Sierra Server
+site_url: https://sjohnsonaz.github.io/sierra-server
+repo_url: https://github.com/sjohnsonaz/sierra-server
+copyright: Copyright &copy; 2017 Sean Johnson
+pages:
+    - Home: index.md
+theme: readthedocs
