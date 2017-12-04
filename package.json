@@ -13,8 +13,8 @@
     "prepublishOnly": "tsc --declaration",
     "test": "tsc && node src/mocha/NodeRunner.js",
     "watch": "tsc --watch",
-    "node": "node ./dist/scripts/main.js",
-    "nodemon": "nodemon ./dist/scripts/main.js",
+    "node": "node ./dist/tests/test.js",
+    "nodemon": "nodemon ./dist/tests/test.js",
     "mkdocs": "mkdocs build",
     "mkdocs-serve": "mkdocs serve",
     "mkdocs-deploy": "mkdocs gh-deploy"
@@ -23,6 +23,7 @@
   "devDependencies": {
     "@types/chai": "4.0.8",
     "@types/mocha": "2.2.44",
+    "@types/node": "8.0.54",
     "chai": "4.1.2",
     "jsdom": "11.5.1",
     "mocha": "4.0.1",

@@ -1,24 +1,17 @@
 import { expect } from 'chai';
 
-import { run } from '../scripts/main';
+import * as http from 'http';
+import RequestHandler from '../scripts/main';
 
-describe('run', () => {
-    it('should return "Application started..."', () => {
-        expect(run()).to.equal('Application started...');
-    });
+let handler = new RequestHandler();
+
+handler.use(async function (context, result) {
+    return context.send('test');
 });
 
-describe('Dom', () => {
-    it('should have window', () => {
-        expect(window).to.not.be.undefined;
-    });
+let server = http.createServer(handler.create());
 
-    it('should have document', () => {
-        expect(document).to.not.be.undefined;
-    });
-
-    it('should have document.createElement', () => {
-        var element = document.createElement('div');
-        expect(element.tagName.toLowerCase()).to.equal('div');
-    });
+let port = 3001;
+server.listen(port, () => {
+    console.log('Listening to port: ' + port);
 });
