@@ -7,6 +7,8 @@ import OutgoingMessage from './OutgoingMessage';
 export default class RequestHandler {
     middlewares: IMiddleware<any, any>[] = [];
     error: IMiddleware<any, any>;
+    view: IMiddleware<any, string>;
+
     create() {
         return async (request: http.IncomingMessage, response: http.ServerResponse) => {
             console.log(request.url);
@@ -46,14 +48,19 @@ export default class RequestHandler {
         context.response.end();
     }
 
-    sendView(context: Context, data: any, status: number = 200) {
+    async sendView(context: Context, data: any, status: number = 200) {
         context.response.statusCode = status;
-        context.response.write(JSON.stringify(data));
+        context.response.write(await this.view(context, data));
         context.response.end();
     }
 
     send<T>(context: Context, data: any, status: number = 200) {
-        this.sendJson(context, data, status);
+        let accept = context.request.headers.accept.split(',');
+        if (accept.indexOf('text/html') > -1) {
+            this.sendView(context, data, status);
+        } else {
+            this.sendJson(context, data, status);
+        }
     }
 
     use<T, U>(middlware: IMiddleware<T, U>) {
