@@ -24,7 +24,12 @@ export default class RequestHandler {
             catch (e) {
                 if (this.error) {
                     try {
-                        this.error(context, e);
+                        let result = await this.error(context, e);
+                        if (result instanceof OutgoingMessage) {
+                            this.send(context, result.data, result.status);
+                        } else {
+                            this.send(context, e, 500);
+                        }
                     }
                     catch (e) {
                         this.send(context, e, 500);
