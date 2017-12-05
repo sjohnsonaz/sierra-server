@@ -50,6 +50,7 @@ export default class RequestHandler {
 
     async sendView(context: Context, data: any, status: number = 200) {
         context.response.statusCode = status;
+        context.response.setHeader('Content-Type', 'text/html');
         context.response.write(await this.view(context, data));
         context.response.end();
     }
