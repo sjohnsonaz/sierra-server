@@ -36,6 +36,7 @@ export default class RequestHandler {
 
     sendJson(context: Context, data: any, status: number = 200) {
         context.response.statusCode = status;
+        context.response.setHeader('Content-Type', 'application/json');
         context.response.write(JSON.stringify(data));
         context.response.end();
     }
